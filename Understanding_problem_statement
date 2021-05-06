@@ -1,0 +1,22 @@
+a)	Objective: Get the amount paid for a babysitter for one night
+
+b)	Key constraints:
+ 
+		1. Start time >= 5.00 pm
+		2. End time <= 4.00 am
+
+c)	Pay classification:
+		
+		1. Start time - bed time --> $12 / hr
+		2. Bed time - midnight   --> $8  / hr
+		3. Mid night - end time  --> $16 / hr
+		
+		** only gets paid for full hours, not fractional hours
+	
+d)  Bed time ?
+	Mid night time ?
+	
+	
+e)	Key Conclusions:
+		
+		1.
