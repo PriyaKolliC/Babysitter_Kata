@@ -13,6 +13,17 @@ c)	Pay classification:
 		
 		** only gets paid for full hours, not fractional hours
 	
+		
+		
+		start time ( >= 5 pm)
+			| 12$
+		bed time
+			| 8$
+		midnight time
+			| 16$
+		end time ( <= 4 am)
+		
+	
 d)  Bed time ?
 	Mid night time ?
 	
