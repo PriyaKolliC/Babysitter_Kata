@@ -12,17 +12,50 @@ public class BabysitterKata_Dev {
 			endHour = 4;
 	
 	
-	public int getRegularShiftHours() {
-		return 0;
+	public boolean validateStartHour(int startTime) {
+		if(startTime < startHour )
+			return false;
+		return true;
+	}
+	
+	public boolean validateEndHour(int endTime) {
+		if(endTime > endHour)
+			return false;
+		return true;
+	}
+	
+	public boolean validateBedTimeHour(int bedTime, int startTime, int endTime) {
+
+		if (startTime <= bedTime && bedTime <= endTime) {
+			return true;
+		} else
+			return false;
+	}
+	
+	public int getRegularShiftHours(int startTime, int bedTime, int endTime) {
+		
+		if (bedTime >= 12) {
+			return 12 - startTime;
+		} else if (bedTime < 12) {
+			return bedTime - startTime;
+		} else
+			return 0;
+		
 	}
 	
 	
-	public int getBedtimeShiftHours() {
-		return 0;
+	public int getBedtimeShiftHours(int startTime, int bedTime) {
+		if (startTime < 12) {
+			return 12 - bedTime;
+		} else
+			return 0;
 	}
 	
-	public int getMidnightShiftHours() {
-		return 0;
+	public int getMidnightShiftHours(int endTime) {
+		if (endTime > 12) {
+			return endTime - 12;
+		} else
+			return 0;
 	}
 	
 	
@@ -32,9 +65,9 @@ public class BabysitterKata_Dev {
 		int totalPay = 0;
 		
 	
-		int regularShiftHours = getRegularShiftHours(), 
-			bedtimeShiftHours = getBedtimeShiftHours(),
-			midnightShiftHours = getMidnightShiftHours();
+		int regularShiftHours = getRegularShiftHours(startTime, bedTime, endTime), 
+			bedtimeShiftHours = getBedtimeShiftHours(startTime, bedTime),
+			midnightShiftHours = getMidnightShiftHours(endTime);
 		
 		
 		int regularShiftPay = regularShiftHours * regularShiftHourlyPay,
