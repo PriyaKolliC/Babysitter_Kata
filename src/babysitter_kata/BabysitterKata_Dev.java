@@ -19,19 +19,21 @@ public class BabysitterKata_Dev {
 		return time + 24;
 	}
 	
-	//start time cannot be before 5 pm
-	public boolean validateStartHour(int startTime) {
+	//start time cannot be before 5 pm and should always be before end time
+	public boolean validateStartHour(int startTime, int endTime) {
 		
-		if( rescaleTime(startTime) < rescaleTime(startHour) )
+		if( rescaleTime(startTime) < rescaleTime(startHour) || 
+				rescaleTime(startTime) >= rescaleTime(endTime))
 			return false;
 		
 		return true;
 	}
 	
-	//end time can be no later than 4 am 
-	public boolean validateEndHour(int endTime) {
+	//end time can be no later than 4 am and should always be after start time 
+	public boolean validateEndHour(int endTime, int startTime) {
 		
-		if( rescaleTime(endTime) > rescaleTime(endHour) )
+		if( rescaleTime(endTime) > rescaleTime(endHour) || 
+				rescaleTime(endTime) <= rescaleTime(startTime))
 			return false;
 		
 		return true;
@@ -50,13 +52,15 @@ public class BabysitterKata_Dev {
 	
 	//check if input parameters are appropriate
 	public boolean validateInput(int startTime, int bedTime, int endTime) {
-		if(validateStartHour(startTime) && validateBedTimeHour(bedTime, startTime, endTime) && validateEndHour(endTime))
+		if(validateStartHour(startTime, endTime) && 
+				validateBedTimeHour(bedTime, startTime, endTime) && 
+				validateEndHour(endTime, startTime))
 			return true;
 		return false;
 	}
 	
 	//calculate regular shift hours
-	public int getRegularShiftHours(int startTime, int bedTime, int endTime) {
+	public int getRegularShiftHours(int startTime, int bedTime) {
 		
 		if ( rescaleTime(bedTime) >= rescaleTime(12) ){
 			return rescaleTime(12) - rescaleTime(startTime);
@@ -67,8 +71,8 @@ public class BabysitterKata_Dev {
 	}
 	
 	//calculate bedtime shift hours
-	public int getBedtimeShiftHours(int startTime, int bedTime) {
-		if ( rescaleTime(startTime) < rescaleTime(12) ){
+	public int getBedtimeShiftHours(int bedTime) {
+		if ( rescaleTime(bedTime) < rescaleTime(12) ){
 			return rescaleTime(12) - rescaleTime(bedTime);
 		} else
 			return 0;
@@ -91,8 +95,8 @@ public class BabysitterKata_Dev {
 		if(validateInput(startTime, bedTime, endTime)) {
 		
 			// calculate number of hours for each shift
-			int regularShiftHours = getRegularShiftHours(startTime, bedTime, endTime), 
-				bedtimeShiftHours = getBedtimeShiftHours(startTime, bedTime),
+			int regularShiftHours = getRegularShiftHours(startTime, bedTime), 
+				bedtimeShiftHours = getBedtimeShiftHours(bedTime),
 				midnightShiftHours = getMidnightShiftHours(endTime);
 			
 			//calculate cumulative sum of pay for each shift

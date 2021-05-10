@@ -24,106 +24,118 @@ public class BabysitterKata_Test {
 		assertEquals(24, kataTest.rescaleTime(12));
 	}
 	
-	
 	@Test
 	public void shouldRescaleTime4to28() {
 		assertEquals(28, kataTest.rescaleTime(4));
 	}
 	
+	// Methods to validate if start time is appropriate
+	@Test
+	public void returnsTrueIfStartTime5pmIsLessThanEndTime1am() {
+		assertEquals(true, kataTest.validateStartHour(5, 1));
+	}
+
+	@Test
+	public void returnsFalseIfStartTime4amIsLessThanEndTime4am() {
+		assertEquals(false, kataTest.validateStartHour(4, 4));
+	}
 	
-/*
-	// Creating a method to validate that converted start time is before 4am
-	// (i.e. is less than 11).
+	
+
+	// Method to validate if end time is appropriate
 	@Test
-	public void shouldReturnTrueConvertedStartTime5pmIsLessThan11() {
-		assertEquals(true, testObject.validateStartTime(5));
+	public void returnsTrueIfEndTime4amIsAfterStartTime5pm() {
+		assertEquals(true, kataTest.validateEndHour(4, 5));
 	}
 
 	@Test
-	public void shouldReturnFalseConvertedStartTime4amIsLessThan11() {
-		assertEquals(false, testObject.validateStartTime(4));
+	public void returnsFalseIfEndTime7pmIsAfterStartTime8pm() {
+		assertEquals(false, kataTest.validateEndHour(7, 8));
 	}
 
-	// Creating a method to validate that end time is after start time.
+	// Methods to validate if bedtime is within range of start time to end time
+	
 	@Test
-	public void shouldReturnTrueEndTime4amIsAfterStartTime5pm() {
-		assertEquals(true, testObject.validateEndTime(4, 5));
-	}
-
-	@Test
-	public void shouldReturnFalseEndTime7pmIsAfterStartTime8pm() {
-		assertEquals(false, testObject.validateEndTime(7, 8));
-	}
-
-	// Creating a method to validate that bedtime is within range of start time
-	// to end time.
-	@Test
-	public void shouldReturnTrueBedTime9pmIsWithinStartTime5pmEndTime4am() {
-		assertEquals(true, testObject.validateBedTime(9, 5, 4));
+	public void returnsTrueIfBedTime8pmIsWithinStartTime6pmEndTime2am() {
+		assertEquals(true, kataTest.validateBedTimeHour(8, 6, 2));
 	}
 
 	@Test
-	public void shouldReturnFalseBedTime6pmIsWithinStartTime7pmEndTime11pm() {
-		assertEquals(false, testObject.validateBedTime(6, 7, 11));
+	public void returnsFalseIfBedTime6pmIsWithinStartTime8pmEndTime10pm() {
+		assertEquals(false, kataTest.validateBedTimeHour(6, 7, 11));
 	}
-
-	// Creating a method to calculate amount of hours in the midnight shift.
-	// The midnight shift pay rate supersedes other pay rates so we will create
-	// it first.
+	
+	
+	// Methods to calculate Mid night shift hours
 	@Test
-	public void shouldReturn4HoursFromMidnightToEndTime4am() {
-		assertEquals(4, testObject.calculateMidnightShiftHours(4));
-	}
-
-	@Test
-	public void shouldReturn2HoursFromMidnightToEndTime2am() {
-		assertEquals(2, testObject.calculateMidnightShiftHours(2));
+	public void return4HoursFromMidnightToEndTime4am() {
+		assertEquals(4, kataTest.getMidnightShiftHours(4));
 	}
 
 	@Test
-	public void shouldReturn0HoursFromMidnightToEndTime11pm() {
-		assertEquals(0, testObject.calculateMidnightShiftHours(11));
-	}
-
-	// Creating a method to calculate amount of hours in the bedtime shift.
-	// Midnight shift hours pay rate supersedes bedtime shift hours pay rate
-	// which in turn supersedes regular shift hours pay rate.
-	@Test
-	public void shouldReturn6HoursBedTime6pmStartTime5pmEndTime4am() {
-		assertEquals(6, testObject.calculateBedtimeShiftHours(5, 4, 6));
+	public void return3HoursFromMidnightToEndTime3am() {
+		assertEquals(3, kataTest.getMidnightShiftHours(3));
 	}
 
 	@Test
-	public void shouldReturn1HoursBedTime11pmStartTime5pmEndTime4am() {
-		assertEquals(1, testObject.calculateBedtimeShiftHours(5, 4, 11));
+	public void return0HoursFromMidnightToEndTime12am() {
+		assertEquals(0, kataTest.getMidnightShiftHours(12));
+	}
+	
+	
+	// Methods to calculate Regular shift hours
+	@Test
+	public void return7HoursStartTime5pmBedtime2am() {
+		assertEquals(7, kataTest.getRegularShiftHours(5, 2));
 	}
 
 	@Test
-	public void shouldReturn0HoursBedtime1amStartTime1amEndTime3am() {
-		assertEquals(0, testObject.calculateBedtimeShiftHours(1, 3, 1));
+	public void shouldReturn6HoursStartTime5pmBedtime11pm() {
+		assertEquals(6, kataTest.getRegularShiftHours(5, 11));
 	}
-
-	// Creating a method to calculate the amount of hours in the regular shift.
+	
+	
+	// Methods to calculate Regular Shift Hours
 	@Test
-	public void shouldReturn7HoursStartTime5pmEndTime4amBedtime4am() {
-		assertEquals(7, testObject.calculateRegularShiftHours(5, 4, 4));
+	public void shouldReturn6HoursBedTime6pm() {
+		assertEquals(6, kataTest.getBedtimeShiftHours(6));
 	}
 
 	@Test
-	public void shouldReturn6HoursStartTime5pmEndTime4amBedtime11pm() {
-		assertEquals(6, testObject.calculateRegularShiftHours(5, 4, 11));
+	public void shouldReturn1HoursBedTime11pm() {
+		assertEquals(1, kataTest.getBedtimeShiftHours(11));
 	}
 
+	@Test
+	public void shouldReturn0HoursBedtime1am() {
+		assertEquals(0, kataTest.getBedtimeShiftHours(1));
+	}
+
+	
+	// Methods to calculate ultimate Pay rates for one work night
+	@Test
+	public void return140ForStartTime5pmBedTime10pmEndTime4am() {
+		assertEquals(140, kataTest.getTotalPay(5, 10, 4));
+	}
+
+	@Test
+	public void return116ForStartTime5pmBedTime12amEndTime2am() {
+		assertEquals(116, kataTest.getTotalPay(5, 12, 2));
+	}
+	
+	@Test
+	public void return64ForStartTime12amBedTime2amEndTime4am() {
+		assertEquals(64, kataTest.getTotalPay(12, 2, 4));
+	}
+	
+	@Test
+	public void return0ForStartTime2amBedTime12amEndTime4am() {
+		assertEquals(0, kataTest.getTotalPay(2, 12, 4));
+	}
+	
+	/*
 	// Create method to return total pay.
-	// Pay rates are hardcoded in the class.
-	@Test
-	public void shouldReturn136ForStartTime5pmBedTime9pmEndTime4am() {
-		assertEquals(136, testObject.calculateTotalPay(5, 9, 4));
-	}
+		
 
-	@Test
-	public void shouldReturn124ForStartTime6pmBedTime9pmEndTime4am() {
-		assertEquals(124, testObject.calculateTotalPay(6, 9, 4));
-	}
-*/
+		*/
 }
