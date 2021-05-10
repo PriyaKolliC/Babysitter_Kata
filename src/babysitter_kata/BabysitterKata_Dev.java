@@ -87,10 +87,16 @@ public class BabysitterKata_Dev {
 	}
 	
 	
-	// calculate the total pay for one night, given the start, end and bed times
+	/*
+	 * Calculate the total pay for one work night, given the start, end and bed times
+	 * Step 1: Validate the input start time, end time and bed times given their constraints
+	 * Step 2: Calculate the working hours in each shift
+	 * Step 3: Calculate the total pay
+	 */
 	public int getTotalPay(int startTime, int bedTime, int endTime) {
 		
 		int totalPay = 0;
+		
 		
 		if(validateInput(startTime, bedTime, endTime)) {
 		

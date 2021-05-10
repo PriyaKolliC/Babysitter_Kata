@@ -132,10 +132,4 @@ public class BabysitterKata_Test {
 	public void return0ForStartTime2amBedTime12amEndTime4am() {
 		assertEquals(0, kataTest.getTotalPay(2, 12, 4));
 	}
-	
-	/*
-	// Create method to return total pay.
-		
-
-		*/
 }

@@ -24,10 +24,14 @@ c)	Pay classification:
 		end time ( <= 4 am)
 		
 	
-d)  Bed time ?
-	Mid night time ?
+d)  Midnight time - 12 am
 	
 	
 e)	Key Conclusions:
-		
-		1.
+		1. Start time should be after 5 pm and before end time
+		2. End time should be after start time and before 4 am
+		3. Bed time should lie in between start time and end time(inclusive)
+		4. If bed time is after mid night time, then no bed time hours are considered
+		5. Rescaling times 5 pm - 4 am to a new scale of values 17(5 pm) - 28(4 am) for 
+		   simplifying the problem. 
+		      
